@@ -43,15 +43,15 @@ $tasks =[
 function count_tasks ($all_tasks, $categories_name)
 {
     $counter = 0;
-    foreach ($categories_name as $value) {
-        if ($value['categories'] === $all_tasks) {
+    foreach ($categories as $value) {
+        if ($value['categories'] === $tasks) {
             $counter++;
         }
     }
-    if ($categories_name === 'Все') {
-        return count($all_tasks);
+    if ($categories === 'Все') {
+        return count($tasks);
     }
-    return $all_tasks ;
+    return $tasks ;
 }
 
 ?>
