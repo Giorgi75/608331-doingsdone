@@ -151,7 +151,7 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                 </div>
 
                 <table class="tasks">
-                    <tr class="tasks__item task <?= $value['completed'] === true ? "task--completed" : ""; ?>">
+                    <tr class="tasks__item task <?= $tasks['completed'] === true ? "task--completed" : ""; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
