@@ -4,9 +4,9 @@ $show_complete_tasks = rand(0, 1);
 $categories = [
     'incoming' => 'Входящие',
     'learning' => 'Учеба',
-    'work' =>'Работа',
-    'housework' =>'Домашние дела',
-    'auto' =>'Авто'
+    'work' => 'Работа',
+    'housework' => 'Домашние дела',
+    'auto' => 'Авто'
 ];
 $tasks =[
     [
@@ -109,7 +109,7 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <li class="main-navigation__list-item main-navigation__list-item--active">
-                            <a class="main-navigation__list-item-link" href="#">Входящие</a>
+                            <a class="main-navigation__list-item-link" href="#">Все</a>
                             <span class="main-navigation__list-item-count"><?= count_tasks($tasks) ?></span>
                         </li>
                         <?php foreach ($categories as $category_key => $category): ?>
@@ -118,7 +118,6 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                             <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $categories, $category_key) ?></span>
                         </li>
                         <?php endforeach; ?>
-
                     </ul>
                 </nav>
 
@@ -151,11 +150,12 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                 </div>
 
                 <table class="tasks">
-                    <tr class="tasks__item task <?= $tasks['completed'] === true ? "task--completed" : ""; ?>">
+                    <?php foreach ($tasks as $key => $task): ?>
+                    <tr class="tasks__item task<?= ($task['completed']) ? " task--completed" : ""; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                <span class="checkbox__text">Сделать главную страницу Дела в порядке</span>
+                                <span class="checkbox__text"><?= $task['title']; ?></span>
                             </label>
                         </td>
 
@@ -163,8 +163,9 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                             <a class="download-link" href="#">Home.psd</a>
                         </td>
 
-                        <td class="task__date"></td>
+                        <td class="task__date"><?= $task['date']; ?></td>
                     </tr>
+                    <?php endforeach; ?>
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
                     <?php if ($show_complete_tasks): ?>
                         <tr class="tasks__item task task--completed">
@@ -179,7 +180,6 @@ function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
                             <td class="task__controls">
                             </td>
                         </tr>
-
                     <?php endif; ?>
                 </table>
             </main>
