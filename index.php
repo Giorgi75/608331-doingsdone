@@ -1,6 +1,67 @@
 <?php
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
+$categories = [
+    'incoming' => 'Входящие',
+    'learning' => 'Учеба',
+    'work' => 'Работа',
+    'housework' => 'Домашние дела',
+    'auto' => 'Авто'
+];
+$tasks =[
+    [
+        'title' => 'Собеседование в IT компании',
+        'date' => '01.06.2018',
+        'categories' => $categories['work'],
+        'completed' => false
+    ], [
+        'title' => 'Выполнить тестовое задание',
+        'date' => '25.05.2018',
+        'categories' => $categories['work'],
+        'completed' => false
+    ], [
+        'title' => 'Сделать задание первого раздела',
+        'date' => '21.04.2018',
+        'categories' => $categories['learning'],
+        'completed' => true
+    ], [
+        'title' => 'Встреча с другом',
+        'date' => '22.04.2018',
+        'categories' => $categories['incoming'],
+        'completed' => false
+    ], [
+        'title' => 'Купить корм для кота',
+        'date' => 'Нет',
+        'categories' => $categories['housework'],
+        'completed' => false
+    ], [
+        'title' => 'Заказать пиццу',
+        'date' => 'Нет',
+        'categories' => $categories['housework'],
+        'completed' => false
+    ],
+];
+
+/**
+ * Вывод количества задач
+ * @param array $tasks — массив со всеми задачами
+ * @param array $categories — массив с категориями
+ * @param string $category_key - ключ категории
+ * @return integer — количество задач
+ */
+function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
+    if ($categories && $category_key) {
+        $counter = 0;
+        foreach ($tasks as $task) {
+            if ($task['categories'] === $categories[$category_key]) {
+                $counter++;
+            }
+        }
+        return $counter;
+    } else {
+        return count($tasks);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -47,30 +108,16 @@ $show_complete_tasks = rand(0, 1);
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Входящие</a>
-                            <span class="main-navigation__list-item-count">24</span>
-                        </li>
-
                         <li class="main-navigation__list-item main-navigation__list-item--active">
-                            <a class="main-navigation__list-item-link" href="#">Работа</a>
-                            <span class="main-navigation__list-item-count">12</span>
+                            <a class="main-navigation__list-item-link" href="#">Все</a>
+                            <span class="main-navigation__list-item-count"><?= count_tasks($tasks) ?></span>
                         </li>
-
+                        <?php foreach ($categories as $category_key => $category): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Здоровье</a>
-                            <span class="main-navigation__list-item-count">3</span>
+                            <a class="main-navigation__list-item-link" href="#"><?= $category; ?></a>
+                            <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $categories, $category_key) ?></span>
                         </li>
-
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Домашние дела</a>
-                            <span class="main-navigation__list-item-count">7</span>
-                        </li>
-
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#">Авто</a>
-                            <span class="main-navigation__list-item-count">0</span>
-                        </li>
+                        <?php endforeach; ?>
                     </ul>
                 </nav>
 
@@ -103,11 +150,12 @@ $show_complete_tasks = rand(0, 1);
                 </div>
 
                 <table class="tasks">
-                    <tr class="tasks__item task">
+                    <?php foreach ($tasks as $key => $task): ?>
+                    <tr class="tasks__item task<?= ($task['completed']) ? " task--completed" : ""; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                <span class="checkbox__text">Сделать главную страницу Дела в порядке</span>
+                                <span class="checkbox__text"><?= $task['title']; ?></span>
                             </label>
                         </td>
 
@@ -115,8 +163,9 @@ $show_complete_tasks = rand(0, 1);
                             <a class="download-link" href="#">Home.psd</a>
                         </td>
 
-                        <td class="task__date"></td>
+                        <td class="task__date"><?= $task['date']; ?></td>
                     </tr>
+                    <?php endforeach; ?>
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
                     <?php if ($show_complete_tasks): ?>
                         <tr class="tasks__item task task--completed">
