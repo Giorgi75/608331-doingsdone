@@ -18,3 +18,46 @@ $users = [
         'password' => '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW'
     ]
 ];
+
+// показывать или нет выполненные задачи
+$show_complete_tasks = rand(0, 1);
+$categories = [
+    'incoming' => 'Входящие',
+    'learning' => 'Учеба',
+    'work' => 'Работа',
+    'housework' => 'Домашние дела',
+    'auto' => 'Авто'
+];
+$tasks =[
+    [
+        'title' => 'Собеседование в IT компании',
+        'date' => '01.06.2018',
+        'categories' => $categories['work'],
+        'completed' => false
+    ], [
+        'title' => 'Выполнить тестовое задание',
+        'date' => '25.05.2018',
+        'categories' => $categories['work'],
+        'completed' => false
+    ], [
+        'title' => 'Сделать задание первого раздела',
+        'date' => '21.04.2018',
+        'categories' => $categories['learning'],
+        'completed' => true
+    ], [
+        'title' => 'Встреча с другом',
+        'date' => '22.04.2018',
+        'categories' => $categories['incoming'],
+        'completed' => false
+    ], [
+        'title' => 'Купить корм для кота',
+        'date' => 'Нет',
+        'categories' => $categories['housework'],
+        'completed' => false
+    ], [
+        'title' => 'Заказать пиццу',
+        'date' => 'Нет',
+        'categories' => $categories['housework'],
+        'completed' => false
+    ],
+];
