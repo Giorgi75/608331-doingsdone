@@ -37,6 +37,7 @@ function renderTemplate($template_name, $template_data) {
     }
 }
 
+
 /**
  * проверяем просрочена ли задача
  * @param datetime $date  дата и время задачи
@@ -52,3 +53,5 @@ function is_task_deadline($date) {
     print($diff_time);
     return ($diff_time < 24 * 60 * 60);
 }
+
+
