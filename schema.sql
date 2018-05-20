@@ -37,7 +37,7 @@ CREATE TABLE tasks (
   date_completed DATETIME,
   name VARCHAR(512),
   file VARCHAR(512),
-  date_deadline DATETIME,
+  task_deadline DATETIME,
   user_id INT,
   project_id INT,
   FOREIGN KEY (user_id) REFERENCES users(id),
@@ -48,5 +48,5 @@ CREATE INDEX u_int ON tasks(user_id);
 CREATE INDEX p_int ON tasks(project_id);
 CREATE INDEX dcre_dt ON tasks(date_created);
 CREATE INDEX dcom_dt ON tasks(date_completed);
-CREATE INDEX dd_dt ON tasks(date_deadline);
+CREATE INDEX dd_dt ON tasks(task_deadline);
 CREATE INDEX n_text ON tasks(name);
