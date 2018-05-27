@@ -22,45 +22,43 @@
 </div>
 
 <table class="tasks">
-    <?php foreach ($tasks as $key => $task): ?>
+    <?php foreach ($tasks as $task): ?>
         <?php if ($show_complete_tasks): ?>
-            <tr class="tasks__item task<?php if ($task['completed']) {
+            <tr class="tasks__item task<?php if ($task['date_completed']) {
                 echo " task--completed";
-            } elseif (is_task_deadline($task['date'])) {
+            } elseif (is_task_deadline($task['task_deadline'])) {
                 echo " task--important";
             }; ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
-                            <?= ($task['completed']) ? " checked" : ""; ?>>
-                        <span class="checkbox__text"><?= ($task['title']); ?></span>
+                            <?= ($task['date_completed']) ? " checked" : ""; ?>>
+                        <span class="checkbox__text"><?= ($task['name']); ?></span>
                     </label>
                 </td>
+                <?php if ($task['file']) { ?>
+                    <td class="task__file">
+                        <a class="download-link" href="#"><?= $task['file']; ?></a>
+                    </td>
+                <?php } ?>
 
-                <td class="task__file">
-
-                    <a class="download-link" href="#">Home.psd</a>
-
-                </td>
-
-                <td class="task__date"><?= $task['date']; ?></td>
+                <td class="task__date"><?= $task['date_created']; ?></td>
             </tr>
-        <?php elseif (!$task['completed']): ?>
-            <tr class="tasks__item task<?= (is_task_deadline($task['date'])) ? " task--important" : ""; ?>">
+        <?php elseif (!$task['date_completed']): ?>
+            <tr class="tasks__item task<?= (is_task_deadline($task['task_deadline'])) ? " task--important" : ""; ?>">
                 <td class="task__select">
                     <label class="checkbox task__checkbox">
                         <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                        <span class="checkbox__text"><?= ($task['title']); ?></span>
+                        <span class="checkbox__text"><?= ($task['name']); ?></span>
                     </label>
                 </td>
+                <?php if ($task['file']) { ?>
+                    <td class="task__file">
+                        <a class="download-link" href="#"><?= $task['file']; ?></a>
+                    </td>
+                <?php } ?>
 
-                <td class="task__file">
-
-                    <a class="download-link" href="#">Home.psd</a>
-
-                </td>
-
-                <td class="task__date"><?= $task['date']; ?></td>
+                <td class="task__date"><?= $task['date_created']; ?></td>
             </tr>
         <?php endif; ?>
     <?php endforeach; ?>
