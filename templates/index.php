@@ -42,7 +42,7 @@
                     </td>
                 <?php } ?>
 
-                <td class="task__date"><?= $task['date_created']; ?></td>
+                <td class="task__date"><?= $task['task_deadline']; ?></td>
             </tr>
         <?php elseif (!$task['date_completed']): ?>
             <tr class="tasks__item task<?= (is_task_deadline($task['task_deadline'])) ? " task--important" : ""; ?>">
@@ -58,7 +58,7 @@
                     </td>
                 <?php } ?>
 
-                <td class="task__date"><?= $task['date_created']; ?></td>
+                <td class="task__date"><?= $task['task_deadline']; ?></td>
             </tr>
         <?php endif; ?>
     <?php endforeach; ?>
