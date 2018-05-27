@@ -2,15 +2,14 @@
 /**
  * Вывод количества задач
  * @param array $tasks — массив со всеми задачами
- * @param array $categories — массив с категориями
- * @param string $category_key - ключ категории
+ * @param string $project_id - ключ категории
  * @return integer — количество задач
  */
-function count_tasks($tasks, $categories = NULL, $category_key = NULL) {
-    if ($categories && $category_key) {
+function count_tasks($tasks, $project_id = NULL) {
+    if ($project_id) {
         $counter = 0;
         foreach ($tasks as $task) {
-            if ($task['categories'] === $categories[$category_key]) {
+            if ($task['project_id'] === $project_id) {
                 $counter++;
             }
         }
@@ -52,3 +51,9 @@ function is_task_deadline($date) {
     print($diff_time);
     return ($diff_time < 24 * 60 * 60);
 }
+
+
+
+
+
+
