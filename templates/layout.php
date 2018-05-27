@@ -47,10 +47,10 @@
                             <a class="main-navigation__list-item-link" href="#">Все</a>
                             <span class="main-navigation__list-item-count"><?= count_tasks($tasks) ?></span>
                         </li>
-                        <?php foreach ($categories as $category_key => $category): ?>
+                        <?php foreach ($projects as $project): ?>
                             <li class="main-navigation__list-item">
-                                <a class="main-navigation__list-item-link" href="#"><?= $category; ?></a>
-                                <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $categories, $category_key) ?></span>
+                                <a class="main-navigation__list-item-link" href="index.php?project_id=<?= $project['id']; ?>"><?= $project['name']; ?></a>
+                                <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $project['id']); ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
