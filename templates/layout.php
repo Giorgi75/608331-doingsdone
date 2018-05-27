@@ -43,14 +43,14 @@
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <li class="main-navigation__list-item main-navigation__list-item--active">
-                            <a class="main-navigation__list-item-link" href="#">Все</a>
-                            <span class="main-navigation__list-item-count"><?= count_tasks($tasks) ?></span>
+                        <li class="main-navigation__list-item<?= (empty($_GET['project_id'])) ? ' main-navigation__list-item--active' : ''; ?>">
+                            <a class="main-navigation__list-item-link" href="index.php<?= (!empty($_GET['show_completed'])) ? '?show_completed=' . $_GET['show_completed']: ''?>">Все</a>
+                            <span class="main-navigation__list-item-count"><?= count_tasks($all_tasks); ?></span>
                         </li>
                         <?php foreach ($projects as $project): ?>
-                            <li class="main-navigation__list-item">
-                                <a class="main-navigation__list-item-link" href="index.php?project_id=<?= $project['id']; ?>"><?= $project['name']; ?></a>
-                                <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $project['id']); ?></span>
+                            <li class="main-navigation__list-item<?= (!empty($_GET['project_id']) && $_GET['project_id'] == $project['id']) ? ' main-navigation__list-item--active' : ''; ?>">
+                                <a class="main-navigation__list-item-link" href="index.php?project_id=<?= $project['id']; ?><?= (!empty($_GET['show_completed'])) ? '&show_completed=' . $_GET['show_completed']: ''?>"><?= $project['name']; ?></a>
+                                <span class="main-navigation__list-item-count"><?= count_tasks($all_tasks, $project['id']); ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

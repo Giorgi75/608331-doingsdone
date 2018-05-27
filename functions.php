@@ -2,7 +2,7 @@
 /**
  * Вывод количества задач
  * @param array $tasks — массив со всеми задачами
- * @param string $project_id - ключ категории
+ * @param string $project_id - ID проекта
  * @return integer — количество задач
  */
 function count_tasks($tasks, $project_id = NULL) {
@@ -18,6 +18,7 @@ function count_tasks($tasks, $project_id = NULL) {
         return count($tasks);
     }
 }
+
 /**
  * функция генерации шаблона
  * @param string $template_name название шаблона
@@ -42,18 +43,38 @@ function renderTemplate($template_name, $template_data) {
  * @return boolean просрочена ли задача
  */
 function is_task_deadline($date) {
-    if ($date === 'Нет') {
+    $current_date = time();
+    if (empty($date)) {
         return false;
     }
-    $current_date = time();
     $task_date = strtotime($date);
     $diff_time = $task_date - $current_date;
-    print($diff_time);
     return ($diff_time < 24 * 60 * 60);
 }
 
+/**
+ * формирование массива из базы
+ * @param mysql $link соединение с базой
+ * @param string $sql строка запроса
+ * @return array массив данных
+ */
+function fetch_all($link, $sql) {
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+}
 
-
-
-
+/**
+ * считаем количество записей в таблице
+ * @param mysql $link соединение с базой
+ * @param string $sql строка запроса
+ * @return integer количество записей
+ */
+function count_db_rows($link, $sql) {
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        return mysqli_num_rows($result);
+    }
+}
 
