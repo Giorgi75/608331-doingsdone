@@ -5,12 +5,12 @@ VALUES ('2018-03-01 00:00:00', 'pascal@gmail.com',  'Паскаль',   'passwor
        ('2018-03-03 23:59:59', 'gregory@gmail.com',  'Грегори',   'password3',  ('Gregory123'));
 
 -- Заполняем список проектов
-INSERT INTO projects(name, user_id)
-VALUES ('Входящие',      1),
-       ('Учеба',         2),
-       ('Работа',        3),
-       ('Домашние дела', 1),
-       ('Авто',          2);
+INSERT INTO projects(name, alias, user_id)
+VALUES ('Входящие', 'incoming', 1),
+       ('Учеба', 'learning', 2),
+       ('Работа', 'work', 3),
+       ('Домашние дела', 'homework', 1),
+       ('Авто', 'auto', 2);
 
 -- Заполняем список задач
 INSERT INTO tasks(date_created, date_completed, name, file, task_deadline, user_id, project_id)

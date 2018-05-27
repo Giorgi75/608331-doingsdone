@@ -23,6 +23,7 @@ CREATE UNIQUE INDEX email ON users(email);
 CREATE TABLE projects (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name CHAR(128),
+  alias CHAR(128),
   user_id INT,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
