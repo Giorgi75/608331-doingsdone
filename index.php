@@ -3,7 +3,11 @@ require_once 'config.php';
 require_once 'db.php';
 require_once 'functions.php';
 
-$current_user = 1;
+$current_user = $_SESSION['user']['id'];
+
+if (!$is_auth) {
+    header('Location: login.php');
+}
 
 $errors = [];
 if (!empty($_POST)) {
@@ -65,21 +69,22 @@ $projects = fetch_all($link, '
 
 $main = renderTemplate('index.php', [
     'show_complete_tasks' => $show_complete_tasks,
+    'all_tasks' => $all_tasks,
+    'user_tasks' => $tasks,
+    'projects' => $projects,
+    'is_auth' => $is_auth,
     'tasks' => $tasks
 ]);
 
-$modal_task = renderTemplate('task.php', [
+$modal = renderTemplate('task.php', [
     'errors' => $errors,
     'projects' => $projects
 ]);
 
 $content = renderTemplate('layout.php', [
-    'title' => ' Список задач',
-    'all_tasks' => $all_tasks,
-    'user_tasks' => $tasks,
-    'projects' => $projects,
+    'title' => 'Список задач',
     'errors' => $errors,
-    'modal_task' => $modal_task,
+    'modal' => $modal,
     'main' => $main
 ]);
 
