@@ -13,7 +13,7 @@ if (!empty($_POST)) {
         $user_email = fetch_all($link, '
             SELECT `email`
             FROM `users`
-            WHERE `email` = ' . $_POST['email']
+            WHERE `email` = "' . $_POST['email'] . '";'
         );
         if (!empty($user_email)) {
             $errors['email'] = 'Email уже используется другим пользователем';
@@ -44,8 +44,13 @@ if (!empty($_POST)) {
     }
 }
 
-$content = renderTemplate('register.php', [
+$main = renderTemplate('register.php', [
     'errors' => $errors
+]);
+
+$content = renderTemplate('layout.php', [
+    'title' => 'Регистрация',
+    'main' => $main
 ]);
 
 print($content);
