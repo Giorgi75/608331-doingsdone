@@ -1,9 +1,7 @@
 <?php
-
 require_once 'config.php';
 require_once 'db.php';
 require_once 'functions.php';
-require_once 'mysql_helper.php';
 
 $current_user = 1;
 
@@ -30,10 +28,9 @@ if (!empty($_POST)) {
             `user_id` = ' . $current_user . ',
             `project_id` = ' . intval($_POST['project']) . ';';
         $result = mysqli_query($link, $sql);
-        print($sql);
         if ($result) {
             mysqli_query($link, 'COMMIT');
-            header("Location: index.php?project_id=" . intval($_POST['project']));
+            header('Location: index.php?project_id=' . intval($_POST['project']));
         } else {
             mysqli_query($link, 'ROLLBACK');
         }
