@@ -29,8 +29,8 @@ if (!empty($_POST)) {
         INSERT INTO `tasks`
         SET `name` = "' . mysqli_real_escape_string($link, $_POST['name']) . '",
             `task_deadline` = ' . $task_deadline . ',
-            `user_id` = ' . $current_user . ',
-            `project_id` = ' . intval($_POST['project']) . ';';
+            `user_id` = ' . mysqli_real_escape_string($link, $current_user) . ',
+            `project_id` = ' . mysqli_real_escape_string($link, intval($_POST['project'])) . ';';
         $result = mysqli_query($link, $sql);
         if ($result) {
             mysqli_query($link, 'COMMIT');
@@ -41,12 +41,14 @@ if (!empty($_POST)) {
     }
 }
 
+
 $show_complete_tasks = (isset($_GET['show_completed'])) ? $_GET['show_completed'] : false;
+
 
 $all_tasks = fetch_all($link, '
     SELECT `date_created`, `date_completed`, `name`, `file`, `task_deadline`, `project_id`
     FROM `tasks`
-    WHERE `user_id` = ' . $current_user
+    WHERE `user_id` = ' . mysqli_real_escape_string($link, $current_user)
 );
 
 if (isset($_GET['project_id'])) {
@@ -54,8 +56,8 @@ if (isset($_GET['project_id'])) {
     $tasks = fetch_all($link, '
         SELECT `date_created`, `date_completed`, `name`, `file`, `task_deadline`, `project_id`
         FROM `tasks`
-        WHERE `project_id` = ' . $current_project . '
-        AND `user_id` = ' . $current_user
+        WHERE `project_id` = ' . mysqli_real_escape_string($link, $current_project) . '
+        AND `user_id` = ' . mysqli_real_escape_string($link, $current_user)
     );
 } else {
     $tasks = $all_tasks;
@@ -64,7 +66,7 @@ if (isset($_GET['project_id'])) {
 $projects = fetch_all($link, '
     SELECT `id`, `name`, `alias`
     FROM `projects`
-    WHERE `user_id` = ' . $current_user
+    WHERE `user_id` = ' . mysqli_real_escape_string($link, $current_user)
 );
 
 $main = renderTemplate('index.php', [
